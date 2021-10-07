@@ -30,7 +30,7 @@ class MoviesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const query = yield database_1.default.query(`SELECT * FROM movies WHERE id =${req.params.id}`);
-                const data = query.rows;
+                const data = query.rows[0];
                 res.json({ message: "Get one movie", data });
             }
             catch (error) {
