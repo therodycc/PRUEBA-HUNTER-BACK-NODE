@@ -7,7 +7,7 @@ class PopUpController {
     try {
       const query = await pool.query(
         `
-      select * 
+      select movies.id, movies.title,movies.premiere ,movies.photo,movies.gender
       from movies
       inner join actors_movies 
       on movies.id = actors_movies.id_movie 
@@ -29,7 +29,7 @@ class PopUpController {
     try {
       const query = await pool.query(
         `
-      select * 
+      select authors.id, authors.full_name,authors.gender, authors.photo, authors.born 
       from movies
       inner join actors_movies 
       on movies.id = actors_movies.id_movie 
