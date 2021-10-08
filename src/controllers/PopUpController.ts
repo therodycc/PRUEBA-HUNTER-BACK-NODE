@@ -5,9 +5,9 @@ class PopUpController {
   //peliculas en las que trabajo un actor
   public async getMoviesActor(req: Request, res: Response) {
     try {
-      const data = await pool.query(
+      const query = await pool.query(
         `
-      select movies.title, authors.full_name 
+      select * 
       from movies
       inner join actors_movies 
       on movies.id = actors_movies.id_movie 
@@ -17,8 +17,8 @@ class PopUpController {
         [req.params.id]
       );
 
-      const tablaInfo = data.rows;
-      res.json({ message: "Get movies from an actor", tablaInfo });
+      const data = query.rows;
+      res.json({ message: "Get movies from an actor", data });
     } catch (error) {
       res.json(error);
     }
@@ -27,9 +27,9 @@ class PopUpController {
   // todos los autores de una pelicula
   public async getActorsMovie(req: Request, res: Response) {
     try {
-      const data = await pool.query(
+      const query = await pool.query(
         `
-      select movies.title, authors.full_name 
+      select * 
       from movies
       inner join actors_movies 
       on movies.id = actors_movies.id_movie 
@@ -39,8 +39,8 @@ class PopUpController {
         [req.params.id]
       );
 
-      const tablaInfo = data.rows;
-      res.json({ message: "Get actors from an movie", tablaInfo });
+      const data = query.rows;
+      res.json({ message: "Get actors from an movie", data });
     } catch (error) {
       res.json(error);
     }
@@ -48,9 +48,9 @@ class PopUpController {
 
   public async get(req: Request, res: Response) {
     try {
-      const data = await pool.query(`SELECT * FROM actors_movies`);
-      const tablaInfo = data.rows;
-      res.json({ message: "Get PopUp", tablaInfo });
+      const query = await pool.query(`SELECT * FROM actors_movies`);
+      const data = query.rows;
+      res.json({ message: "Get PopUp", data });
     } catch (error) {
       res.json(error);
     }
@@ -59,12 +59,12 @@ class PopUpController {
   public async getOne(req: Request, res: Response) {
     try {
       const { id_actor, id_movie } = req.params;
-      const data = await pool.query(
+      const query = await pool.query(
         `SELECT * FROM actors_movies WHERE id_actor = $1 AND id_movie = $2`,
         [id_actor, id_movie]
       );
-      const tablaInfo = data.rows;
-      res.json({ message: "Get one PopUp", tablaInfo });
+      const data = query.rows;
+      res.json({ message: "Get one PopUp", data });
     } catch (error) {
       res.json(error);
     }
@@ -73,7 +73,7 @@ class PopUpController {
   public async create(req: Request, res: Response): Promise<void> {
     try {
       const { id_actor, id_movie } = req.body;
-      const data = await pool.query(
+      const query = await pool.query(
         `INSERT INTO actors_movies (id_actor, id_movie ) VALUES ($1, $2)`,
         [id_actor, id_movie]
       );
@@ -87,7 +87,7 @@ class PopUpController {
     try {
       const { id_ac, id_mov } = req.params;
       const { id_actor, id_movie } = req.body;
-      const data = await pool.query(
+      const query = await pool.query(
         `UPDATE actors_movies SET id_actor = $1, id_movie = $2  WHERE id_actor = $3 AND id_movie = $4`,
         [id_actor, id_movie, id_ac, id_mov]
       );
@@ -99,10 +99,10 @@ class PopUpController {
 
   public async delete(req: Request, res: Response) {
     try {
-      const { id_ac, id_mov } = req.params;
-      const data = await pool.query(
+      const { id_actor, id_movie } = req.params;
+      const query = await pool.query(
         `DELETE FROM actors_movies WHERE id_actor = $1 AND id_movie = $2`,
-        [id_ac, id_mov]
+        [id_actor, id_movie]
       );
       res.json({ message: "PopUp DELETE" });
     } catch (error) {}
