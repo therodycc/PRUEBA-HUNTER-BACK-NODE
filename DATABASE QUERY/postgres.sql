@@ -16,7 +16,7 @@ CREATE TABLE authors(
 	 born  VARCHAR(100),
 	 gender VARCHAR(100),
 	 photo VARCHAR(1000)
-)
+);
 
 CREATE TABLE movies(
 	id SERIAL PRIMARY KEY,
@@ -24,16 +24,15 @@ CREATE TABLE movies(
 	premiere VARCHAR(100),
 	gender VARCHAR(100),
 	photo VARCHAR(1000)
-)
+);
 
 CREATE TABLE actors_movies(
 	id_actor int references authors(id),
 	id_movie int  references movies(id)
-)
+);
 
-INSERT INTO actors_movies(id_actor, id_movie) VALUES (7,2)
-INSERT INTO movies(title, premiere,gender,photo) VALUES ('VENOM 2','14/10/2021','FICTION','https://es.web.img2.acsta.net/pictures/21/08/31/16/41/4145554.jpg')
-INSERT INTO authors(full_name, born,gender,photo) VALUES ('Dwayne Johnson','02/05/1972','Male.','https://m.media-amazon.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UY1200_CR84,0,630,1200_AL_.jpg')
+INSERT INTO movies(title, premiere,gender,photo) VALUES ('VENOM 2','14/10/2021','FICTION','https://es.web.img2.acsta.net/pictures/21/08/31/16/41/4145554.jpg');
+INSERT INTO authors(full_name, born,gender,photo) VALUES ('Dwayne Johnson','02/05/1972','Male.','https://m.media-amazon.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UY1200_CR84,0,630,1200_AL_.jpg');
 
 --peliculas en las que trabajo un actor
 
@@ -43,7 +42,7 @@ inner join actors_movies
 on movies.id = actors_movies.id_movie 
 inner join authors
 on authors.id = actors_movies.id_actor
-where actors_movies.id_actor = 6
+where actors_movies.id_actor = 6;
 
 -- todos los autores de una pelicula
 
@@ -53,13 +52,10 @@ inner join actors_movies
 on movies.id = actors_movies.id_movie 
 inner join authors
 on authors.id = actors_movies.id_actor
-where actors_movies.id_movie = 2
+where actors_movies.id_movie = 2;
 
 
-SELECT * FROM movies
-SELECT * FROM authors
-SELECT * FROM actors_movies
+SELECT * FROM movies;
+SELECT * FROM authors;
+SELECT * FROM actors_movies;
 
-delete from movies
-delete from authors
-delete from actors_movies
