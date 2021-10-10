@@ -3,6 +3,8 @@
 Usé el puerto 3000 para ejecutar el Web
 Service - (back-end)
 
+Desarrollado con node y typeScript
+
 # Api Actors
 
     | http://localhost:3000/api/actors
